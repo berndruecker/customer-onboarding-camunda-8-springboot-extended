@@ -25,7 +25,7 @@
     <bpmn:endEvent id="EndEventProcessedAutomatically" name="Customer order processed automatically">
       <bpmn:incoming>Flow_0t3j6d0</bpmn:incoming>
     </bpmn:endEvent>
-    <bpmn:serviceTask id="TaskAddToCRM" name="Add customer&#10;to CRM">
+    <bpmn:serviceTask id="TaskAddToCRM" name="Add customer&#10;to CRM system">
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="addCustomerToCrm" />
       </bpmn:extensionElements>
@@ -46,7 +46,7 @@
       <bpmn:incoming>Flow_0tfwrhn</bpmn:incoming>
       <bpmn:outgoing>Flow_1kibkkx</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:serviceTask id="TaskRegisterSIM" name="Register SIM&#10;in network">
+    <bpmn:serviceTask id="TaskRegisterSIM" name="Register SIM&#10;on network">
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="registerSIM" />
       </bpmn:extensionElements>
@@ -55,10 +55,10 @@
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="Flow_0mmiguk" sourceRef="StartEventCustomerOnboardingExtended" targetRef="Activity_06r19b0" />
     <bpmn:sequenceFlow id="Flow_1r5b7fp" sourceRef="TaskValidateCustomerApplication" targetRef="GatewayCanBeProcessesAutomatically" />
-    <bpmn:sequenceFlow id="Flow_0emtlr2" name="no" sourceRef="GatewayCanBeProcessesAutomatically" targetRef="TaskProcessApplicationManually">
+    <bpmn:sequenceFlow id="Flow_0emtlr2" name="No" sourceRef="GatewayCanBeProcessesAutomatically" targetRef="TaskProcessApplicationManually">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=(automaticProcessing=false)</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="Flow_07wd4f9" name="yes" sourceRef="GatewayCanBeProcessesAutomatically" targetRef="Gateway_003w25e">
+    <bpmn:sequenceFlow id="Flow_07wd4f9" name="Yes" sourceRef="GatewayCanBeProcessesAutomatically" targetRef="Gateway_003w25e">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=(automaticProcessing=true)</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_11dxwyq" sourceRef="TaskProcessApplicationManually" targetRef="EndEventProcessesManually" />
@@ -70,7 +70,7 @@
     <bpmn:sequenceFlow id="Flow_1ezk03a" sourceRef="Activity_06r19b0" targetRef="TaskValidateCustomerApplication" />
     <bpmn:sequenceFlow id="Flow_1kibkkx" sourceRef="TaskProvisionSIM" targetRef="TaskRegisterSIM" />
     <bpmn:sequenceFlow id="Flow_0t3j6d0" sourceRef="TaskRegisterSIM" targetRef="EndEventProcessedAutomatically" />
-    <bpmn:callActivity id="Activity_06r19b0" name="Score customer">
+    <bpmn:callActivity id="Activity_06r19b0" name="Score customer order">
       <bpmn:extensionElements>
         <zeebe:calledElement processId="customer-scoring" />
       </bpmn:extensionElements>
@@ -84,7 +84,7 @@
       <bpmn:incoming>Flow_0emtlr2</bpmn:incoming>
       <bpmn:outgoing>Flow_11dxwyq</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:serviceTask id="TaskValidateCustomerApplication" name="Decide for automatic processing">
+    <bpmn:serviceTask id="TaskValidateCustomerApplication" name="Decide whether to process automatically">
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="DMN" />
         <zeebe:taskHeaders>
@@ -154,7 +154,7 @@
         <di:waypoint x="577" y="225" />
         <di:waypoint x="577" y="373" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="586" y="230" width="13" height="14" />
+          <dc:Bounds x="585" y="230" width="15" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1r5b7fp_di" bpmnElement="Flow_1r5b7fp">
