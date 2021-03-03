@@ -8,6 +8,15 @@ This following stack is used:
 * Java
 * Spring Boot
 
+# Under Construction Warning
+
+This example is still under construction (as we are still approaching Camunda Cloud GA), so it might not work as expected out-of-the-box for you just yet.
+
+It also contains some workarounds for for features missing in Camunda Cloud (but that are on the near term roadmap):
+
+* User Task & Form for the user to approve customer orders are missing, simulated by service task simply completing user tasks
+* Own DMN Worker because DMN Integration doesn#t yet work out of the box
+
 
 # Simple Process
 
