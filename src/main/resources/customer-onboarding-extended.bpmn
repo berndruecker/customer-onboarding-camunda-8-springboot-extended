@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_0j4m54y" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Zeebe Modeler" exporterVersion="0.11.0">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_0j4m54y" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.8.0">
   <bpmn:process id="customer-onboarding-extended" name="Customer Onboarding (Extended)" isExecutable="true">
     <bpmn:startEvent id="StartEventCustomerOnboardingExtended" name="New customer order received">
       <bpmn:outgoing>Flow_0mmiguk</bpmn:outgoing>
@@ -77,13 +77,6 @@
       <bpmn:incoming>Flow_0mmiguk</bpmn:incoming>
       <bpmn:outgoing>Flow_1ezk03a</bpmn:outgoing>
     </bpmn:callActivity>
-    <bpmn:serviceTask id="TaskProcessApplicationManually" name="Handle customer order">
-      <bpmn:extensionElements>
-        <zeebe:taskDefinition type="humanTask" />
-      </bpmn:extensionElements>
-      <bpmn:incoming>Flow_0emtlr2</bpmn:incoming>
-      <bpmn:outgoing>Flow_11dxwyq</bpmn:outgoing>
-    </bpmn:serviceTask>
     <bpmn:serviceTask id="TaskValidateCustomerApplication" name="Decide whether to process automatically">
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="DMN" />
@@ -94,10 +87,13 @@
       <bpmn:incoming>Flow_1ezk03a</bpmn:incoming>
       <bpmn:outgoing>Flow_1r5b7fp</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:textAnnotation id="TextAnnotation_0kycgd8">
-      <bpmn:text>User Task</bpmn:text>
-    </bpmn:textAnnotation>
-    <bpmn:association id="Association_11voexb" sourceRef="TaskProcessApplicationManually" targetRef="TextAnnotation_0kycgd8" />
+    <bpmn:userTask id="TaskProcessApplicationManually" name="Handle customer order">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="humanTask" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0emtlr2</bpmn:incoming>
+      <bpmn:outgoing>Flow_11dxwyq</bpmn:outgoing>
+    </bpmn:userTask>
     <bpmn:textAnnotation id="TextAnnotation_1kbeixf">
       <bpmn:text>Decision Task</bpmn:text>
     </bpmn:textAnnotation>
@@ -210,22 +206,15 @@
       <bpmndi:BPMNShape id="Activity_16twdxf_di" bpmnElement="Activity_06r19b0">
         <dc:Bounds x="257" y="160" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_1ysrfd6_di" bpmnElement="TaskProcessApplicationManually">
-        <dc:Bounds x="527" y="373" width="100" height="80" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_1pe5vbe_di" bpmnElement="TaskValidateCustomerApplication">
         <dc:Bounds x="397" y="160" width="100" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="TextAnnotation_0kycgd8_di" bpmnElement="TextAnnotation_0kycgd8">
-        <dc:Bounds x="550" y="500" width="100" height="26" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="TextAnnotation_1kbeixf_di" bpmnElement="TextAnnotation_1kbeixf">
         <dc:Bounds x="410" y="80" width="100" height="30" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="Association_11voexb_di" bpmnElement="Association_11voexb">
-        <di:waypoint x="589" y="453" />
-        <di:waypoint x="597" y="500" />
-      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Activity_1ebfgca_di" bpmnElement="TaskProcessApplicationManually">
+        <dc:Bounds x="527" y="373" width="100" height="80" />
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Association_15yoe4f_di" bpmnElement="Association_15yoe4f">
         <di:waypoint x="450" y="160" />
         <di:waypoint x="458" y="110" />
