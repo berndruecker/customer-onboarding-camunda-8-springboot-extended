@@ -13,8 +13,8 @@
 		<maven.compiler.source>11</maven.compiler.source>
 		<maven.compiler.target>11</maven.compiler.target>
 		<spring.boot.version>2.3.4.RELEASE</spring.boot.version>
-		<zeebe.version>1.0.0-rc3</zeebe.version>
-		<dmn.version>7.14.0</dmn.version>
+		<zeebe.version>1.1.0</zeebe.version>
+		<dmn.version>7.15.0</dmn.version>
 	</properties>
 
 	<dependencies>
@@ -39,12 +39,6 @@
 			<artifactId>camunda-engine-dmn</artifactId>
 			<version>${dmn.version}</version>
 		</dependency>
-		<dependency>
-			<groupId>io.zeebe</groupId>
-			<artifactId>zeebe-cluster-testbench-cloud-client</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

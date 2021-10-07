@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" id="drd-automatic-processing-applicability" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.4.0">
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" id="drd-automatic-processing-applicability" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.10.0">
   <decision id="automatic-processing-applicability" name="Automatic Processing Applicability">
     <decisionTable id="DecisionTable_1y72mpj" hitPolicy="FIRST">
       <input id="InputClause_1b0ph2j" label="Payment Type" biodi:width="218">
@@ -20,7 +20,7 @@
           <text>monthlyPayment</text>
         </inputExpression>
       </input>
-      <output id="Output_1" label="Manual Check Necessary?" name="manualCheck" typeRef="boolean" biodi:width="250" />
+      <output id="Output_1" label="Automatic Processing Possible?" name="automaticProcessing" typeRef="boolean" biodi:width="250" />
       <rule id="DecisionRule_0g97k89">
         <inputEntry id="UnaryTests_0u9dgg3">
           <text>"prepaid"</text>
@@ -32,7 +32,7 @@
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_050mx06">
-          <text>false</text>
+          <text>true</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_0hym2eh">
@@ -46,7 +46,7 @@
           <text></text>
         </inputEntry>
         <outputEntry id="LiteralExpression_12osnvc">
-          <text>true</text>
+          <text>false</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_04f9ofd">
@@ -60,7 +60,7 @@
           <text>&lt; 25</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_14qjw50">
-          <text>false</text>
+          <text>true</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_0786436">
@@ -74,7 +74,7 @@
           <text>&gt;=  25</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_04vxq2l">
-          <text>true</text>
+          <text>false</text>
         </outputEntry>
       </rule>
     </decisionTable>

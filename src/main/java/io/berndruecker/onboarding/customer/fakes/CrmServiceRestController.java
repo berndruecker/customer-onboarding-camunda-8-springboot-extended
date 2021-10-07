@@ -12,7 +12,7 @@ import org.springframework.web.server.ServerWebExchange;
 @RestController
 public class CrmServiceRestController {
 
-    private Logger logger = LoggerFactory.getLogger(CustomerOnboardingRestController.class);
+    private Logger logger = LoggerFactory.getLogger(CrmServiceRestController.class);
 
     @PutMapping("/crm/customer")
     public ResponseEntity<String> onboardCustomer(ServerWebExchange exchange) {

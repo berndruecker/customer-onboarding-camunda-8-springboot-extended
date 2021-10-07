@@ -36,12 +36,15 @@ public class CustomerOnboardingRestController {
 
   public void onboardCustomer() {
     HashMap<String, Object> variables = new HashMap<String, Object>();
-    variables.put("automaticProcessing", true);
+    //variables.put("automaticProcessing", true);
+    variables.put("paymentType", "prepaid");
+    variables.put("monthlyPayment", 45);
+    variables.put("customerRegionScore", 40);
     variables.put("someInput", "yeah");
 
     //    WorkflowInstanceEvent future = client.newCreateInstanceCommand() //
     client.newCreateInstanceCommand() //
-        .bpmnProcessId("customer-onboarding") //
+        .bpmnProcessId("customer-onboarding-extended") //
         .latestVersion() //
         .variables(variables) //
         .send().join();
