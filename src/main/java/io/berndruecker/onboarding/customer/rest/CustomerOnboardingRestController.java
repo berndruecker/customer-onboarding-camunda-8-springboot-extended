@@ -22,27 +22,31 @@ public class CustomerOnboardingRestController {
 
   @PutMapping("/customer")
   public ResponseEntity<CustomerOnboardingResponse> onboardCustomer(ServerWebExchange exchange) {
-    // TODO: Build variant with synchronous facade
-    //CustomerOnboardingResponse response = onboardCustomer();
-    // return ResponseEntity.status(HttpStatus.OK).body(response);
+    String paymentType = exchange.getRequest().getQueryParams().getFirst("paymentType");
+    if (paymentType==null) {
+      paymentType = "prepaid";
+    }
+    String monthlyPayment = exchange.getRequest().getQueryParams().getFirst("monthlyPayment");
+    if (monthlyPayment==null) {
+      monthlyPayment = "45";
+    }
+    String customerRegionScore = exchange.getRequest().getQueryParams().getFirst("customerRegionScore");
+    if (customerRegionScore==null) {
+      customerRegionScore = "40";
+    }
 
-    onboardCustomer();
+    onboardCustomer(paymentType, Integer.parseInt(monthlyPayment), Integer.parseInt(customerRegionScore));
+
     return ResponseEntity.status(HttpStatus.ACCEPTED).build();
   }
 
-//  public CustomerOnboardingResponse onboardCustomer() {
-//    CustomerOnboardingResponse response = new CustomerOnboardingResponse();
-//    String scoringRequestId = UUID.randomUUID().toString();
-
-  public void onboardCustomer() {
+  public void onboardCustomer(String paymentType, int monthlyPayment, int customerRegionScore) {
     HashMap<String, Object> variables = new HashMap<String, Object>();
     //variables.put("automaticProcessing", true);
-    variables.put("paymentType", "prepaid");
-    variables.put("monthlyPayment", 45);
-    variables.put("customerRegionScore", 40);
-    variables.put("someInput", "yeah");
+    variables.put("paymentType", paymentType);
+    variables.put("monthlyPayment", monthlyPayment);
+    variables.put("customerRegionScore", customerRegionScore);
 
-    //    WorkflowInstanceEvent future = client.newCreateInstanceCommand() //
     client.newCreateInstanceCommand() //
         .bpmnProcessId("customer-onboarding-extended") //
         .latestVersion() //

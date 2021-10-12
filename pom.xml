@@ -39,6 +39,12 @@
 			<artifactId>camunda-engine-dmn</artifactId>
 			<version>${dmn.version}</version>
 		</dependency>
+		<!-- for simple starter website -->
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>jquery</artifactId>
+			<version>3.6.0</version>
+		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
