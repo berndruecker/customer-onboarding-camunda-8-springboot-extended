@@ -23,17 +23,11 @@ public class CustomerOnboardingRestController {
   @PutMapping("/customer")
   public ResponseEntity<CustomerOnboardingResponse> onboardCustomer(ServerWebExchange exchange) {
     String paymentType = exchange.getRequest().getQueryParams().getFirst("paymentType");
-    if (paymentType==null) {
-      paymentType = "prepaid";
-    }
+    if (paymentType==null) {paymentType = "prepaid";}
     String monthlyPayment = exchange.getRequest().getQueryParams().getFirst("monthlyPayment");
-    if (monthlyPayment==null) {
-      monthlyPayment = "45";
-    }
+    if (monthlyPayment==null) {monthlyPayment = "45";}
     String customerRegionScore = exchange.getRequest().getQueryParams().getFirst("customerRegionScore");
-    if (customerRegionScore==null) {
-      customerRegionScore = "40";
-    }
+    if (customerRegionScore==null) {customerRegionScore = "40";}
 
     onboardCustomer(paymentType, Integer.parseInt(monthlyPayment), Integer.parseInt(customerRegionScore));
 
@@ -42,7 +36,6 @@ public class CustomerOnboardingRestController {
 
   public void onboardCustomer(String paymentType, int monthlyPayment, int customerRegionScore) {
     HashMap<String, Object> variables = new HashMap<String, Object>();
-    //variables.put("automaticProcessing", true);
     variables.put("paymentType", paymentType);
     variables.put("monthlyPayment", monthlyPayment);
     variables.put("customerRegionScore", customerRegionScore);

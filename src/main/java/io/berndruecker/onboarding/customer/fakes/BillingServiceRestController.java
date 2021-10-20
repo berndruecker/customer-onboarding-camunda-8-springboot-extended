@@ -15,7 +15,8 @@ public class BillingServiceRestController {
     private Logger logger = LoggerFactory.getLogger(BillingServiceRestController.class);
 
     @PutMapping("/billing/customer")
-    public ResponseEntity<String> onboardCustomer(ServerWebExchange exchange) {
+    public ResponseEntity<String> addCustomerToBillingSystem(ServerWebExchange exchange) {
+        logger.info("Add customer to billing system...");
         return ResponseEntity.status(HttpStatus.OK).build(); // add body?
     }
 

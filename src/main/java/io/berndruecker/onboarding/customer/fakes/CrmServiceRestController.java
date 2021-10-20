@@ -15,7 +15,8 @@ public class CrmServiceRestController {
     private Logger logger = LoggerFactory.getLogger(CrmServiceRestController.class);
 
     @PutMapping("/crm/customer")
-    public ResponseEntity<String> onboardCustomer(ServerWebExchange exchange) {
+    public ResponseEntity<String> addCustomerToCrmSystem(ServerWebExchange exchange) {
+        logger.info("Add customer to CRM system...");
         return ResponseEntity.status(HttpStatus.OK).build(); // add body?
     }
 
