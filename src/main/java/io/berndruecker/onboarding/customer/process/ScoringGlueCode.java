@@ -49,8 +49,8 @@ public class ScoringGlueCode {
         return new Queue(RABBIT_QUEUE_NAME_RESPONSE, false);
     }
 
-    @ZeebeWorker(type = ZEEBE_TASK_TYPE_SEND_SCORING)
-    public void sendScoringRequestMessage(final JobClient client, final ActivatedJob job) {
+    @ZeebeWorker(type = ZEEBE_TASK_TYPE_SEND_SCORING, autoComplete = true)
+    public Map<String, Object> sendScoringRequestMessage(final ActivatedJob job) {
         logger.info("Send message to score customer [" + job + "]");
 
         Map<String, Object> existingVariables = job.getVariablesAsMap();
@@ -71,10 +71,7 @@ public class ScoringGlueCode {
         counter++;
         newVariables.put(ProcessConstants.VAR_SCORING_RETRY_COUNT, counter);
 
-        // complete activity
-        client.newCompleteCommand(job.getKey()) //
-                .variables(newVariables)
-                .send().join();
+        return newVariables;
     }
 
     @RabbitListener(queues = RABBIT_QUEUE_NAME_RESPONSE)

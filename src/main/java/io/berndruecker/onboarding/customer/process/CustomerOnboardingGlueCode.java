@@ -47,4 +47,12 @@ public class CustomerOnboardingGlueCode {
         client.newCompleteCommand(job.getKey()) //
                 .send().join();
     }
+
+    @ZeebeWorker(type="provisionSIM", autoComplete = true)
+    public void provisionSimCard() {
+        //if (true) {
+            //throw new RuntimeException("CANOT CONNECT TO SIM CARD SYSTEM. OH NOOOOOO.");
+        //}
+    }
+
 }

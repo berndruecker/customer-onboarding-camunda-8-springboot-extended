@@ -4,17 +4,16 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>io.berndruecker</groupId>
-	<artifactId>customer-onboarding-camundacloud-springboot</artifactId>
+	<artifactId>customer-onboarding-camunda-8-springboot</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>customer-onboarding-camundacloud-springboot</name>
-	<description>Customer Onboarding Example Using Camunda Cloud and Spring Boot</description>
+	<description>Customer Onboarding Example Using Camunda 8 and Spring Boot</description>
 
 	<properties>
 		<maven.compiler.source>11</maven.compiler.source>
 		<maven.compiler.target>11</maven.compiler.target>
-		<spring.boot.version>2.3.4.RELEASE</spring.boot.version>
-		<zeebe.version>1.2.1</zeebe.version>
-		<dmn.version>7.15.0</dmn.version>
+		<spring.boot.version>2.6.6</spring.boot.version>
+		<zeebe.version>8.0.1</zeebe.version>
 	</properties>
 
 	<dependencies>
@@ -33,11 +32,6 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-amqp</artifactId>
 			<version>${spring.boot.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.camunda.bpm.dmn</groupId>
-			<artifactId>camunda-engine-dmn</artifactId>
-			<version>${dmn.version}</version>
 		</dependency>
 		<!-- for simple starter website -->
 		<dependency>

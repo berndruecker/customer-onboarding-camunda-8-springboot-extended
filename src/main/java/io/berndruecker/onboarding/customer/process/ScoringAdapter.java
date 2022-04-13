@@ -14,12 +14,9 @@ public class ScoringAdapter {
 
     Logger logger = LoggerFactory.getLogger(ScoringAdapter.class);
 
-    @ZeebeWorker(type = "scoreCustomer")
+    @ZeebeWorker(type = "scoreCustomer", autoComplete = true)
     public void scoreCustomer(final JobClient client, final ActivatedJob job) throws IOException {
         logger.info("score...");
-
-        client.newCompleteCommand(job.getKey()) //
-                .send().join();
     }
 
 }
