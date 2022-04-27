@@ -13,7 +13,6 @@ This following stack is used:
 There are some open todos for this example:
 
 * A custom form for the user task to approve customer orders (the generic form in the tasklist is used instead)
-* Automated unit tests are not yet implemented
 
 
 # Simple Process

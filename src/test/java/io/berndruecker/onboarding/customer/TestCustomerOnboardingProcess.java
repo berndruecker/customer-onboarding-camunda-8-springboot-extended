@@ -1,21 +1,15 @@
 package io.berndruecker.onboarding.customer;
 
-import io.berndruecker.onboarding.customer.process.CustomerOnboardingGlueCode;
 import io.berndruecker.onboarding.customer.rest.CustomerOnboardingRestController;
 import io.camunda.zeebe.client.ZeebeClient;
 import io.camunda.zeebe.client.api.response.ActivatedJob;
 import io.camunda.zeebe.process.test.api.ZeebeTestEngine;
-import io.camunda.zeebe.process.test.inspections.InspectionUtility;
 import io.camunda.zeebe.process.test.inspections.model.InspectedProcessInstance;
 import io.camunda.zeebe.spring.test.ZeebeSpringTest;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.client.AutoConfigureMockRestServiceServer;
 import org.springframework.boot.test.autoconfigure.web.client.AutoConfigureWebClient;
-import org.springframework.boot.test.autoconfigure.web.client.RestClientTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.util.TestPropertyValues;
 import org.springframework.context.ApplicationContextInitializer;
@@ -24,12 +18,9 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.DynamicPropertyRegistry;
-import org.springframework.test.context.DynamicPropertySource;
 import org.springframework.test.web.client.MockRestServiceServer;
 import org.springframework.web.client.RestTemplate;
 import org.testcontainers.containers.GenericContainer;
-
 
 import java.time.Duration;
 import java.util.HashMap;
@@ -50,7 +41,7 @@ import static org.springframework.test.web.client.response.MockRestResponseCreat
 @ActiveProfiles({ "test" })
 @ZeebeSpringTest
 //@RestClientTest(CustomerOnboardingGlueCode.class)
-@AutoConfigureWebClient(registerRestTemplate = true)
+@AutoConfigureWebClient
 //@AutoConfigureMockRestServiceServer
 @ContextConfiguration(initializers = TestCustomerOnboardingProcess.RabbitMqTestcontainersInitializer.class)
 public class TestCustomerOnboardingProcess {
