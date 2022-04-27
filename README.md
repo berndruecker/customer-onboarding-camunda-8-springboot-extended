@@ -10,11 +10,6 @@ This following stack is used:
 * Java
 * Spring Boot
 
-There are some open todos for this example:
-
-* A custom form for the user task to approve customer orders (the generic form in the tasklist is used instead)
-
-
 # Simple Process
 
 This extended process is based on a simpler example, that is meant to get started with process automation, workflow engines and BPMN:
@@ -45,11 +40,13 @@ The extended process model adds some more tasks in the process:
 The process solution is a Maven project and contains:
 
 * The process models as BPMN
+* And embedded Camunda Form for user task handling
 * Source code to provide the REST API for clients (using Spring Boot)
 * Java code to do the customer scoring
 * Glue code to implement the REST call to the CRM system
 * Glue code for AMQP communication
 * Fakes for CRM system and AMQP
+* JUnit 5 test case
 
 
 # How To Run
@@ -90,5 +87,12 @@ You can easily use the application by requesting a new customer onboarding posti
 
 You can now see the process instance in Camunda Operate - linked via the Cloud Console.
 
+You can adjust inputs by providing URl query parameters, e.g.
+
+`curl -X PUT http://localhost:8080/customer?paymentType=invoice&monthlyPayment=40&customerRegionScore=25`
+
 You can work on the user task using Camunda Tasklist, also linked via the Cloud Console.
+
+
+
 

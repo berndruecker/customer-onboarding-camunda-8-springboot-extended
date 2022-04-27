@@ -1,6 +1,66 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_0j4m54y" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.0.0">
   <bpmn:process id="customer-onboarding-extended" name="Customer Onboarding (Extended)" isExecutable="true">
+    <bpmn:extensionElements>
+      <zeebe:userTaskForm id="userTaskForm_3gf1o1e">{
+  "components": [
+    {
+      "text": "# Handle Customer Order Manually\n\nThis customer order must be handled manually, as the ruleset forbids an automatic processing.",
+      "type": "text",
+      "id": "Field_1tbb3b9"
+    },
+    {
+      "label": "Customer Region Score",
+      "type": "number",
+      "id": "Field_0kbtibc",
+      "key": "customerRegionScore",
+      "disabled": true
+    },
+    {
+      "label": "Monthly Payment Fee",
+      "type": "number",
+      "id": "Field_0fc4l0o",
+      "key": "monthlyPayment",
+      "disabled": true
+    },
+    {
+      "label": "Payment Type",
+      "type": "textfield",
+      "id": "Field_1bwhtsh",
+      "key": "paymentType",
+      "disabled": true
+    },
+    {
+      "label": "Automatic Scoring Result",
+      "type": "number",
+      "id": "Field_02f19ow",
+      "key": "scoringResult",
+      "disabled": true
+    },
+    {
+      "text": "Some more customer data\n\n* bla\n* bla",
+      "type": "text",
+      "id": "Field_1of1q1o"
+    },
+    {
+      "action": "submit",
+      "label": "Yes, I handled the order properly!",
+      "type": "button",
+      "id": "Field_1qmrew5",
+      "key": "field_1atiz9i"
+    }
+  ],
+  "type": "default",
+  "id": "Form_0bx966r",
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.0.0",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.0.0"
+  },
+  "schemaVersion": 4
+}</zeebe:userTaskForm>
+    </bpmn:extensionElements>
     <bpmn:startEvent id="StartEventCustomerOnboardingExtended" name="New customer order received">
       <bpmn:outgoing>Flow_0mmiguk</bpmn:outgoing>
     </bpmn:startEvent>
@@ -80,6 +140,7 @@
     <bpmn:userTask id="TaskProcessApplicationManually" name="Handle customer order">
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="humanTask" />
+        <zeebe:formDefinition formKey="camunda-forms:bpmn:userTaskForm_3gf1o1e" />
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_0emtlr2</bpmn:incoming>
       <bpmn:outgoing>Flow_11dxwyq</bpmn:outgoing>
