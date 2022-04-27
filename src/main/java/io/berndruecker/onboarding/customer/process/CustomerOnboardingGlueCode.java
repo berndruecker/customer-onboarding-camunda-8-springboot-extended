@@ -18,41 +18,40 @@ public class CustomerOnboardingGlueCode {
 
     // TODO: This should be of course injected and depends on the environment.
     // Hard coded for now
-    public static String ENDPOINT = "http://localhost:8080/crm/customer";
+    public static String ENDPOINT_CRM = "http://localhost:8080/crm/customer";
     public static String ENDPOINT_BILLING = "http://localhost:8080/billing/customer";
 
     @Autowired
     private RestTemplate restTemplate;
 
-    @ZeebeWorker(type = "addCustomerToCrm")
-    public void addCustomerToCrmViaREST(final JobClient client, final ActivatedJob job) throws IOException {
+    @ZeebeWorker(type = "addCustomerToCrm", autoComplete = true)
+    public void addCustomerToCrmViaREST(final ActivatedJob job) throws IOException {
         logger.info("Add customer to CRM via REST [" + job + "]");
 
         // call rest API
         String request = "todo";
-        restTemplate.put(ENDPOINT, request);
-
-        client.newCompleteCommand(job.getKey()) //
-                .send().join();
+        restTemplate.put(ENDPOINT_CRM, request);
     }
 
-    @ZeebeWorker(type = "addCustomerToBilling")
-    public void addCustomerToBillingViaREST(final JobClient client, final ActivatedJob job) throws IOException {
+    @ZeebeWorker(type = "addCustomerToBilling", autoComplete = true)
+    public void addCustomerToBillingViaREST(final ActivatedJob job) throws IOException {
         logger.info("Add customer to Billing via REST [" + job + "]");
 
         // call rest API
         String request = "todo";
         restTemplate.put(ENDPOINT_BILLING, request);
-
-        client.newCompleteCommand(job.getKey()) //
-                .send().join();
     }
 
     @ZeebeWorker(type="provisionSIM", autoComplete = true)
     public void provisionSimCard() {
+        logger.info("Provisioning SIM card...");
         //if (true) {
             //throw new RuntimeException("CANOT CONNECT TO SIM CARD SYSTEM. OH NOOOOOO.");
         //}
     }
 
+    @ZeebeWorker(type="registerSIM", autoComplete = true)
+    public void registerSimCard() {
+        logger.info("Registering SIM card...");
+    }
 }

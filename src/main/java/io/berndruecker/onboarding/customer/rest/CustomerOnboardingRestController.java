@@ -1,6 +1,7 @@
 package io.berndruecker.onboarding.customer.rest;
 
 import io.camunda.zeebe.client.ZeebeClient;
+import io.camunda.zeebe.client.api.response.ProcessInstanceEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,17 +35,18 @@ public class CustomerOnboardingRestController {
     return ResponseEntity.status(HttpStatus.ACCEPTED).build();
   }
 
-  public void onboardCustomer(String paymentType, int monthlyPayment, int customerRegionScore) {
+  public long onboardCustomer(String paymentType, int monthlyPayment, int customerRegionScore) {
     HashMap<String, Object> variables = new HashMap<String, Object>();
     variables.put("paymentType", paymentType);
     variables.put("monthlyPayment", monthlyPayment);
     variables.put("customerRegionScore", customerRegionScore);
 
-    client.newCreateInstanceCommand() //
-        .bpmnProcessId("customer-onboarding-extended") //
-        .latestVersion() //
-        .variables(variables) //
-        .send().join();
+    ProcessInstanceEvent processInstance = client.newCreateInstanceCommand() //
+            .bpmnProcessId("customer-onboarding-extended") //
+            .latestVersion() //
+            .variables(variables) //
+            .send().join();
+    return processInstance.getProcessInstanceKey();
   }
 
   public static class CustomerOnboardingResponse {
