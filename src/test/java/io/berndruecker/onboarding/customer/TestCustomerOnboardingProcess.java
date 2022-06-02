@@ -31,6 +31,7 @@ import java.util.concurrent.TimeoutException;
 import static io.camunda.zeebe.process.test.assertions.BpmnAssert.assertThat;
 import static io.camunda.zeebe.protocol.Protocol.USER_TASK_JOB_TYPE;
 import static io.camunda.zeebe.spring.test.ZeebeTestThreadSupport.waitForProcessInstanceCompleted;
+import static io.camunda.zeebe.spring.test.ZeebeTestThreadSupport.waitForProcessInstanceHasPassedElement;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.method;
@@ -120,6 +121,8 @@ public class TestCustomerOnboardingProcess {
         //InspectedProcessInstance processInstance = InspectionUtility.findProcessInstances().findLastProcessInstance().get();
         InspectedProcessInstance processInstance = new InspectedProcessInstance(processInstanceKey);
 
+        // wait for asynchronous handling around messaging to finish
+        waitForProcessInstanceHasPassedElement(processInstance, "GatewayCanBeProcessesAutomatically");
         // We expect to have a user task
         waitForUserTaskAndComplete("TaskProcessApplicationManually");
 
