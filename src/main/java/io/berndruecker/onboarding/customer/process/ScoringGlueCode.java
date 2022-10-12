@@ -4,8 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import io.camunda.zeebe.client.ZeebeClient;
 import io.camunda.zeebe.client.api.response.ActivatedJob;
-import io.camunda.zeebe.client.api.worker.JobClient;
-import io.camunda.zeebe.spring.client.annotation.ZeebeWorker;
+import io.camunda.zeebe.spring.client.annotation.JobWorker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.core.Queue;
@@ -49,7 +48,7 @@ public class ScoringGlueCode {
         return new Queue(RABBIT_QUEUE_NAME_RESPONSE, false);
     }
 
-    @ZeebeWorker(type = ZEEBE_TASK_TYPE_SEND_SCORING, autoComplete = true)
+    @JobWorker(type = ZEEBE_TASK_TYPE_SEND_SCORING)
     public Map<String, Object> sendScoringRequestMessage(final ActivatedJob job) {
         logger.info("Send message to score customer [" + job + "]");
 

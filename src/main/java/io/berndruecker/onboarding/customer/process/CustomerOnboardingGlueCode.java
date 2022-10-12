@@ -1,8 +1,7 @@
 package io.berndruecker.onboarding.customer.process;
 
 import io.camunda.zeebe.client.api.response.ActivatedJob;
-import io.camunda.zeebe.client.api.worker.JobClient;
-import io.camunda.zeebe.spring.client.annotation.ZeebeWorker;
+import io.camunda.zeebe.spring.client.annotation.JobWorker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +23,7 @@ public class CustomerOnboardingGlueCode {
     @Autowired
     private RestTemplate restTemplate;
 
-    @ZeebeWorker(type = "addCustomerToCrm", autoComplete = true)
+    @JobWorker(type = "addCustomerToCrm")
     public void addCustomerToCrmViaREST(final ActivatedJob job) throws IOException {
         logger.info("Add customer to CRM via REST [" + job + "]");
 
@@ -33,7 +32,7 @@ public class CustomerOnboardingGlueCode {
         restTemplate.put(ENDPOINT_CRM, request);
     }
 
-    @ZeebeWorker(type = "addCustomerToBilling", autoComplete = true)
+    @JobWorker(type = "addCustomerToBilling")
     public void addCustomerToBillingViaREST(final ActivatedJob job) throws IOException {
         logger.info("Add customer to Billing via REST [" + job + "]");
 
@@ -42,7 +41,7 @@ public class CustomerOnboardingGlueCode {
         restTemplate.put(ENDPOINT_BILLING, request);
     }
 
-    @ZeebeWorker(type="provisionSIM", autoComplete = true)
+    @JobWorker(type="provisionSIM")
     public void provisionSimCard() {
         logger.info("Provisioning SIM card...");
         //if (true) {
@@ -50,7 +49,7 @@ public class CustomerOnboardingGlueCode {
         //}
     }
 
-    @ZeebeWorker(type="registerSIM", autoComplete = true)
+    @JobWorker(type="registerSIM")
     public void registerSimCard() {
         logger.info("Registering SIM card...");
     }

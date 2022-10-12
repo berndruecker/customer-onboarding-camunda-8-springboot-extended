@@ -1,7 +1,7 @@
 package io.berndruecker.onboarding.customer;
 
 import io.camunda.zeebe.spring.client.EnableZeebeClient;
-import io.camunda.zeebe.spring.client.annotation.ZeebeDeployment;
+import io.camunda.zeebe.spring.client.annotation.Deployment;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -11,7 +11,7 @@ import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
 @EnableZeebeClient
-@ZeebeDeployment(resources =  {"classpath*:*.bpmn", "classpath*:*.dmn"})
+@Deployment(resources =  {"classpath*:*.bpmn", "classpath*:*.dmn"})
 public class CustomerOnboardingSpringbootApplication {
 
 	public static void main(String[] args) {
