@@ -13,7 +13,7 @@
 		<maven.compiler.source>11</maven.compiler.source>
 		<maven.compiler.target>11</maven.compiler.target>
 		<spring.boot.version>2.7.5</spring.boot.version>
-		<spring.zeebe.version>8.1.4</spring.zeebe.version>
+		<spring.zeebe.version>8.1.8</spring.zeebe.version>
 	</properties>
 
 	<dependencies>
