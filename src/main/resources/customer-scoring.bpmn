@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_0w1g7k1" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.0.0">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_0w1g7k1" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.11.0">
   <bpmn:process id="customer-scoring" name="Customer Scoring" isExecutable="true">
     <bpmn:startEvent id="StartEventCustomerScoring" name="Score requested">
       <bpmn:outgoing>Flow_0l6etil</bpmn:outgoing>
@@ -10,14 +10,6 @@
       <bpmn:incoming>Flow_1abafgg</bpmn:incoming>
     </bpmn:endEvent>
     <bpmn:sequenceFlow id="Flow_1abafgg" sourceRef="TaskWaitForScoringResult" targetRef="EndEventCustomerScoringSuccess" />
-    <bpmn:serviceTask id="TaskSendScoringRequest" name="Send scoring request">
-      <bpmn:extensionElements>
-        <zeebe:taskDefinition type="SendScoringRequest" />
-      </bpmn:extensionElements>
-      <bpmn:incoming>Flow_0l6etil</bpmn:incoming>
-      <bpmn:incoming>Flow_030ktij</bpmn:incoming>
-      <bpmn:outgoing>Flow_1qjyr1j</bpmn:outgoing>
-    </bpmn:serviceTask>
     <bpmn:receiveTask id="TaskWaitForScoringResult" name="Wait for scoring result" messageRef="Message_09bzddp">
       <bpmn:incoming>Flow_1qjyr1j</bpmn:incoming>
       <bpmn:outgoing>Flow_1abafgg</bpmn:outgoing>
@@ -43,6 +35,14 @@
     <bpmn:sequenceFlow id="Flow_0i2vzgz" name="yes" sourceRef="GatewayRetries" targetRef="EndEventCustomerScoringFailed">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">= scoringRetryCount &gt; 5</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
+    <bpmn:sendTask id="TaskSendScoringRequest" name="Send scoring request">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="SendScoringRequest" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0l6etil</bpmn:incoming>
+      <bpmn:incoming>Flow_030ktij</bpmn:incoming>
+      <bpmn:outgoing>Flow_1qjyr1j</bpmn:outgoing>
+    </bpmn:sendTask>
   </bpmn:process>
   <bpmn:message id="Message_09bzddp" name="MessageScoringResult">
     <bpmn:extensionElements>
@@ -51,37 +51,6 @@
   </bpmn:message>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="customer-scoring">
-      <bpmndi:BPMNEdge id="Flow_0i2vzgz_di" bpmnElement="Flow_0i2vzgz">
-        <di:waypoint x="515" y="230" />
-        <di:waypoint x="572" y="230" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="535" y="212" width="18" height="14" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_030ktij_di" bpmnElement="Flow_030ktij">
-        <di:waypoint x="465" y="230" />
-        <di:waypoint x="320" y="230" />
-        <di:waypoint x="320" y="157" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="433" y="212" width="13" height="14" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_0r02wpz_di" bpmnElement="Flow_0r02wpz">
-        <di:waypoint x="490" y="175" />
-        <di:waypoint x="490" y="205" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_1abafgg_di" bpmnElement="Flow_1abafgg">
-        <di:waypoint x="530" y="117" />
-        <di:waypoint x="592" y="117" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_1qjyr1j_di" bpmnElement="Flow_1qjyr1j">
-        <di:waypoint x="370" y="117" />
-        <di:waypoint x="430" y="117" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_0l6etil_di" bpmnElement="Flow_0l6etil">
-        <di:waypoint x="215" y="117" />
-        <di:waypoint x="270" y="117" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEventCustomerScoring">
         <dc:Bounds x="179" y="99" width="36" height="36" />
         <bpmndi:BPMNLabel>
@@ -93,9 +62,6 @@
         <bpmndi:BPMNLabel>
           <dc:Bounds x="573" y="142" width="75" height="14" />
         </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_1u2rn3a_di" bpmnElement="TaskSendScoringRequest">
-        <dc:Bounds x="270" y="77" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0wab0p0_di" bpmnElement="TaskWaitForScoringResult">
         <dc:Bounds x="430" y="77" width="100" height="80" />
@@ -112,12 +78,46 @@
           <dc:Bounds x="553" y="255" width="74" height="40" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_06h6p1p_di" bpmnElement="TaskSendScoringRequest">
+        <dc:Bounds x="270" y="77" width="100" height="80" />
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_0bta2u2_di" bpmnElement="TimerScoringResultTimeout">
         <dc:Bounds x="472" y="139" width="36" height="36" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="495" y="182" width="49" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_0l6etil_di" bpmnElement="Flow_0l6etil">
+        <di:waypoint x="215" y="117" />
+        <di:waypoint x="270" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1qjyr1j_di" bpmnElement="Flow_1qjyr1j">
+        <di:waypoint x="370" y="117" />
+        <di:waypoint x="430" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1abafgg_di" bpmnElement="Flow_1abafgg">
+        <di:waypoint x="530" y="117" />
+        <di:waypoint x="592" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0r02wpz_di" bpmnElement="Flow_0r02wpz">
+        <di:waypoint x="490" y="175" />
+        <di:waypoint x="490" y="205" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_030ktij_di" bpmnElement="Flow_030ktij">
+        <di:waypoint x="465" y="230" />
+        <di:waypoint x="320" y="230" />
+        <di:waypoint x="320" y="157" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="433" y="212" width="13" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0i2vzgz_di" bpmnElement="Flow_0i2vzgz">
+        <di:waypoint x="515" y="230" />
+        <di:waypoint x="572" y="230" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="535" y="212" width="18" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
 </bpmn:definitions>

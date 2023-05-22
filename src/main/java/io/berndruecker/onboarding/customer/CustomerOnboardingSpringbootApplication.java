@@ -10,7 +10,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
-@EnableZeebeClient
 @Deployment(resources =  {"classpath*:*.bpmn", "classpath*:*.dmn"})
 public class CustomerOnboardingSpringbootApplication {
 
