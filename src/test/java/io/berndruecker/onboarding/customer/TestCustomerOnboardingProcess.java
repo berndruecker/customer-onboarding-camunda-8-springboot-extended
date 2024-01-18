@@ -85,7 +85,7 @@ public class TestCustomerOnboardingProcess {
                 .expect(requestTo("http://localhost:8080/crm/customer")) //
                 .andExpect(method(HttpMethod.PUT))
                 .andRespond(withSuccess("{\"customerId\": \"12345\"}", MediaType.APPLICATION_JSON));
-        // 2. http://localhost:8080/crm/customer
+        // 2. http://localhost:8080/billing/customer
         mockRestServer
                 .expect(requestTo("http://localhost:8080/billing/customer")) //
                 .andExpect(method(HttpMethod.PUT))
